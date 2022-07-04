@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var visibility: NavigationSplitViewVisibility = .automatic
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationSplitView(columnVisibility: $visibility) {
+            Text("Side Bar")
+            Button("Detail Only") {
+                visibility = .detailOnly
+            }
+        } content: {
+            Text("Main Content")
+        } detail: {
+            Text("Detail")
+            Button("Show All") {
+                visibility = .all
+            }
         }
+        .navigationSplitViewStyle(.prominentDetail)
     }
 }
 
